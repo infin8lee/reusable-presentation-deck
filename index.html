@@ -1,785 +1,190 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Green Girl Era Friendsgiving Stay Options</title>
-  <style>
-    :root {
-      --ink: #17211b;
-      --muted: #667268;
-      --cream: #fbf7ef;
-      --paper: #fffdf7;
-      --sage: #8b9b73;
-      --fern: #0d3f2a;
-      --deep: #071f16;
-      --gold: #c5a15e;
-      --rose: #d7b29f;
-      --line: rgba(23, 33, 27, 0.14);
-      --shadow: 0 24px 70px rgba(20, 28, 23, 0.22);
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background: var(--deep);
-    }
-
-    body {
-      overflow: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .deck {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(2.5vw) scale(0.985);
-      transition: opacity 420ms ease, transform 420ms ease;
-      background: var(--cream);
-    }
-
-    .slide.active {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(0) scale(1);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      height: 100%;
-      min-height: 0;
-    }
-
-    .photo {
-      min-height: 100%;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      isolation: isolate;
-    }
-
-    .photo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(7, 31, 22, 0.10), rgba(7, 31, 22, 0.68)),
-        linear-gradient(180deg, rgba(7, 31, 22, 0.02), rgba(7, 31, 22, 0.44));
-      z-index: -1;
-    }
-
-    .cover .photo::after {
-      background:
-        linear-gradient(90deg, rgba(7, 31, 22, 0.12), rgba(7, 31, 22, 0.74)),
-        linear-gradient(180deg, rgba(7, 31, 22, 0.08), rgba(7, 31, 22, 0.52));
-    }
-
-    .panel {
-      padding: clamp(34px, 5vw, 72px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background:
-        radial-gradient(circle at 10% 8%, rgba(197, 161, 94, 0.18), transparent 30%),
-        radial-gradient(circle at 100% 88%, rgba(13, 63, 42, 0.10), transparent 34%),
-        linear-gradient(145deg, rgba(255,253,247,0.97), rgba(247,242,232,0.93));
-      min-width: 0;
-    }
-
-    .eyebrow {
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--fern);
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      display: block;
-      width: 38px;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    h1, h2 {
-      margin: 18px 0 14px;
-      line-height: 0.95;
-      letter-spacing: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      color: var(--fern);
-    }
-
-    h1 {
-      font-size: clamp(54px, 7vw, 104px);
-      max-width: 760px;
-    }
-
-    h2 {
-      font-size: clamp(42px, 5.2vw, 76px);
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: clamp(18px, 2vw, 25px);
-      line-height: 1.36;
-      max-width: 720px;
-      margin: 0 0 28px;
-    }
-
-    .brand-logo {
-      position: absolute;
-      top: 22px;
-      right: 24px;
-      z-index: 24;
-      width: 154px;
-      min-height: 54px;
-      display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 10px;
-      align-items: center;
-      color: var(--fern);
-      pointer-events: none;
-    }
-
-    .brand-logo .crest {
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(197, 161, 94, 0.84);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 800;
-      color: var(--gold);
-      background: rgba(255, 253, 247, 0.72);
-      box-shadow: 0 8px 22px rgba(13, 63, 42, 0.10);
-    }
-
-    .brand-logo .wordmark {
-      font-family: Georgia, "Times New Roman", serif;
-      line-height: 1;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .brand-logo .est {
-      display: block;
-      margin-top: 4px;
-      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-      color: var(--gold);
-      letter-spacing: 0.16em;
-      font-size: 8px;
-      font-weight: 900;
-    }
-
-    .property-kind {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: var(--gold);
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin: 18px 0 22px;
-    }
-
-    .stat {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.46);
-      border-radius: 8px;
-      padding: 14px 14px 13px;
-      min-height: 108px;
-    }
-
-    .label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .value {
-      font-size: clamp(19px, 2.1vw, 28px);
-      line-height: 1.08;
-      font-weight: 850;
-      color: var(--ink);
-    }
-
-    .value small {
-      display: block;
-      font-size: 12px;
-      line-height: 1.25;
-      color: var(--muted);
-      font-weight: 650;
-      margin-top: 6px;
-    }
-
-    .why {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 8px;
-    }
-
-    .note {
-      border-left: 4px solid var(--sage);
-      padding: 12px 14px;
-      background: rgba(128, 149, 111, 0.10);
-      border-radius: 0 8px 8px 0;
-      line-height: 1.38;
-      color: #2a352d;
-    }
-
-    .note strong {
-      color: var(--fern);
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-top: 22px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 0 18px;
-      border-radius: 999px;
-      background: var(--fern);
-      color: white;
-      font-weight: 800;
-      box-shadow: 0 12px 26px rgba(33, 75, 54, 0.24);
-    }
-
-    .secondary {
-      background: transparent;
-      color: var(--fern);
-      border: 1px solid var(--line);
-      box-shadow: none;
-    }
-
-    .ranking {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .rank-card {
-      background: rgba(255,255,255,0.58);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-      min-height: 120px;
-    }
-
-    .rank-card b {
-      color: var(--fern);
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .rank-card span {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
-    }
-
-    .footer {
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 18px;
-      z-index: 20;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: rgba(255,255,255,0.78);
-      font-size: 13px;
-      pointer-events: none;
-    }
-
-    .progress {
-      width: min(340px, 38vw);
-      height: 4px;
-      background: rgba(255,255,255,0.22);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-
-    .bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--rose), var(--gold), #dfe8c8);
-      transition: width 280ms ease;
-    }
-
-    .controls {
-      position: absolute;
-      right: 24px;
-      bottom: 58px;
-      z-index: 25;
-      display: flex;
-      gap: 8px;
-    }
-
-    button {
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.28);
-      color: white;
-      background: rgba(7,31,22,0.42);
-      backdrop-filter: blur(12px);
-      cursor: pointer;
-      font-size: 18px;
-      line-height: 1;
-    }
-
-    .source {
-      font-size: 11px;
-      color: var(--muted);
-      line-height: 1.35;
-      margin-top: 14px;
-    }
-
-    .cover .panel {
-      color: white;
-      background:
-        linear-gradient(145deg, rgba(24, 48, 35, 0.93), rgba(18, 30, 23, 0.96));
-    }
-
-    .cover .brand-logo {
-      color: white;
-    }
-
-    .cover .brand-logo .crest {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(197, 161, 94, 0.92);
-    }
-
-    .cover h1, .cover .eyebrow, .cover .subtitle {
-      color: white;
-    }
-
-    .cover .subtitle {
-      color: rgba(255,255,255,0.76);
-    }
-
-    .cover .stat {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.16);
-    }
-
-    .cover .label {
-      color: rgba(255,255,255,0.62);
-    }
-
-    .cover .value {
-      color: white;
-    }
-
-    .cover .value small {
-      color: rgba(255,255,255,0.66);
-    }
-
-    .full {
-      display: flex;
-      min-height: 100%;
-      align-items: center;
-      justify-content: center;
-      padding: 7vw;
-      background:
-        linear-gradient(120deg, rgba(247,242,232,0.94), rgba(242,232,219,0.98)),
-        url("https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1800&q=80");
-      background-size: cover;
-      background-position: center;
-      background-blend-mode: screen;
-    }
-
-    .summary-card {
-      width: min(1120px, 100%);
-      background: rgba(255,250,241,0.88);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      padding: clamp(28px, 4vw, 58px);
-    }
-
-    .fineprint {
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    @media (max-width: 980px) {
-      body { overflow: auto; }
-      .deck { height: auto; min-height: 100vh; overflow: visible; }
-      .slide {
-        position: relative;
-        min-height: 100vh;
-        opacity: 1;
-        pointer-events: auto;
-        transform: none;
-        display: none;
-      }
-      .slide.active { display: block; }
-      .hero { grid-template-columns: 1fr; grid-template-rows: 38vh auto; }
-      .panel { padding: 28px 22px 78px; }
-      .stats, .why, .ranking { grid-template-columns: 1fr; }
-      .footer { color: rgba(23,33,27,0.62); }
-      .brand-logo {
-        width: 128px;
-        grid-template-columns: 36px 1fr;
-        right: 14px;
-        top: 14px;
-      }
-      .brand-logo .crest { width: 36px; height: 36px; font-size: 13px; }
-      .brand-logo .wordmark { font-size: 12px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Green Girl Era Stay Deck</title>
+<style>
+:root{--fern:#0d3f2a;--gold:#c5a15e;--cream:#fffdf7;--paper:#f7f2e8;--ink:#1f2a24;--muted:#66726a;--sage:#e9eddc;--ok:#1f7a4d;--warn:#a8741a;--bad:#a4452c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif}
+.slide{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:4vh 4vw;overflow:hidden}
+.slide.active{display:flex}
+.bg{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(16px) saturate(.85);transform:scale(1.04)}
+.veil{position:absolute;inset:0;background:rgba(247,242,232,.80)}
+.slide.dark .veil{background:rgba(13,63,42,.70)}
+.card{position:relative;z-index:2;width:min(1200px,100%);max-height:90vh;overflow:auto;background:rgba(255,253,247,.95);border-radius:16px;box-shadow:0 30px 80px rgba(13,63,42,.20);padding:clamp(18px,2.6vw,38px)}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--fern)}
+.eyebrow:before{content:"";width:38px;height:1px;background:var(--gold)}
+h1,h2{font-family:Georgia,"Times New Roman",serif;color:var(--fern);margin:8px 0 8px;line-height:1.05;font-weight:800}
+h1{font-size:clamp(34px,5.4vw,70px)}
+h2{font-size:clamp(26px,3.6vw,46px)}
+.lead{color:var(--muted);font-size:clamp(14px,1.45vw,18px);line-height:1.45;margin:0 0 14px;max-width:760px}
+.head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 14px;font-size:12px;font-weight:800;letter-spacing:.04em;color:#fff;white-space:nowrap}
+.badge:before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;opacity:.9}
+.s-avail{background:var(--ok)}.s-unk{background:var(--warn)}.s-no{background:var(--bad)}
+.grid{display:grid;grid-template-columns:1.02fr 1fr;gap:26px;margin-top:6px}
+.pricebox{background:var(--fern);color:#fff;border-radius:12px;padding:14px 18px;margin:4px 0 12px}
+.pricebox .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.pricebox .big{font-family:Georgia,serif;font-size:clamp(28px,3.4vw,44px);font-weight:800;line-height:1.1;margin:2px 0}
+.pricebox .big small{font-size:14px;font-weight:600;opacity:.8;font-family:inherit}
+.pricebox .sub{font-size:13px;line-height:1.4;opacity:.88}
+.checkbox{border:1px solid rgba(13,63,42,.16);border-left:4px solid var(--gold);border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.45;background:#fff;margin-bottom:12px}
+.checkbox b{color:var(--fern)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stat{border:1px solid rgba(13,63,42,.14);border-radius:10px;padding:10px 12px;background:#fff}
+.stat .l{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.stat .v{font-weight:800;color:var(--fern);font-size:16px;margin:2px 0}
+.stat .d{font-size:12px;color:var(--muted);line-height:1.35}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-content:start}
+.gal img{width:100%;object-fit:cover;border-radius:10px;display:block;background:var(--sage)}
+.gal img:first-child{grid-column:1/-1;height:clamp(170px,30vh,300px)}
+.gal img:not(:first-child){height:clamp(80px,14vh,130px)}
+.gal.one img:first-child{height:clamp(220px,44vh,420px)}
+.gal.two img:not(:first-child){grid-column:1/-1;height:clamp(110px,18vh,170px)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px;font-size:13.5px;line-height:1.5}
+.cols b{color:var(--fern)}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:13px;border-radius:999px;padding:9px 16px;border:1px solid var(--fern);color:var(--fern);background:#fff}
+.btn.primary{background:var(--fern);color:#fff}
+.note{font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:12px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+th{text-align:left;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:2px solid var(--gold)}
+td{padding:8px;border-bottom:1px solid rgba(13,63,42,.12);vertical-align:middle}
+td.n{font-weight:800;color:var(--gold);width:28px}
+td b{color:var(--fern)}
+.chip{display:inline-block;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:800;color:#fff;white-space:nowrap}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}
+.node{border:1px solid rgba(13,63,42,.16);border-radius:12px;padding:16px;background:#fff;position:relative}
+.node.hl{background:var(--fern);color:#fff;border-color:var(--fern)}
+.node .d{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--gold)}
+.node .t{font-family:Georgia,serif;font-size:26px;font-weight:800;margin:4px 0}
+.node p{margin:0;font-size:13px;line-height:1.45;opacity:.9}
+.order{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0}
+.order div{border:1px solid rgba(13,63,42,.16);border-radius:10px;padding:12px;background:#fff;font-size:12.5px;color:var(--muted);line-height:1.4}
+.order b{display:block;color:var(--fern);font-size:15px;margin-bottom:4px}
+.ask{border-left:4px solid #8a9a62;background:rgba(138,154,98,.16);padding:14px 16px;border-radius:0 8px 8px 0;font-size:14px;line-height:1.5}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.brand{position:fixed;top:14px;right:16px;z-index:30;background:var(--fern);border-radius:10px;padding:5px 10px;box-shadow:0 6px 18px rgba(13,63,42,.25)}
+.brand img{height:46px;display:block}
+.controls{position:fixed;right:18px;bottom:16px;z-index:30;display:flex;gap:10px}
+.controls button{width:42px;height:42px;border-radius:50%;border:0;background:rgba(13,63,42,.72);color:#fff;font-size:22px;cursor:pointer}
+.counter{position:fixed;left:20px;bottom:20px;z-index:30;font-size:12px;font-weight:700;color:var(--fern);letter-spacing:.08em}
+.slide.dark ~ .counter{color:#fff}
+@media(max-width:860px){.grid,.cols,.timeline,.stats3{grid-template-columns:1fr}.order{grid-template-columns:1fr 1fr}.brand img{height:34px}.card{max-height:86vh}table{font-size:11.5px}}
+</style>
 </head>
 <body>
-  <main class="deck" aria-live="polite">
-    <div class="brand-logo" aria-label="Green Girl Era logo">
-      <div class="crest">GGE</div>
-      <div><div class="wordmark">Green<br>Girl Era</div><span class="est">EST. 2026</span></div>
-    </div>
-    <div class="controls">
-      <button id="prev" aria-label="Previous slide">‹</button>
-      <button id="next" aria-label="Next slide">›</button>
-    </div>
-
-    <section class="slide cover active">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://design-milk.com/images/2017/03/the-lokal-hotel-kitchen.jpg')"></div>
-        <div class="panel">
-          <div class="eyebrow">Green Girl Era · Philadelphia</div>
-          <h1>Friendsgiving Stay Deck</h1>
-          <p class="subtitle">10 stay options for an intimate Friday, November 20 slumber-party style gathering with kitchen access, common areas, overnight capacity, and sponsorship potential.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Event</div><div class="value">Girls’ night in<small>Friendsgiving, pajamas, hot chocolate, mimosas</small></div></div>
-            <div class="stat"><div class="label">Need</div><div class="value">Small group<small>Overnight + shared gathering space</small></div></div>
-            <div class="stat"><div class="label">Priority</div><div class="value">Affordable<small>Discount, hosted stay, or partner rate</small></div></div>
-          </div>
-          <div class="actions"><span class="button secondary">Use ← / → to present</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://www.thehotelguru.com/_images/78/bc/78bcf6bbfca0a02d8d6def938dc65261/s1654x900.jpg')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 1 · Apartment Hotel</div>
-          <h2>ROOST East Market</h2>
-          <p class="subtitle">Best overall hotel-apartment fit: polished, central, full kitchens, lounge-style amenities, and a sales team used to group arrangements.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">2-4 per unit<small>Studios, 1BR, 2BR; group can book multiple apartments</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">From ~$246/night<small>Public 1BR snapshot; larger units likely higher</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">High<small>Ask for hosted suite + partner content</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> Full-size kitchens, cookware, residential layouts, and refined common amenities support the food-and-lounge format.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Strong pitch for “official overnight partner” because ROOST can provide a luxe apartment-hotel experience without losing the sleepover feel.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://www.myroost.com/luxury-hotel-east-market-philadelphia" target="_blank" rel="noopener">Open Property</a><a class="button secondary" href="mailto:reservations@myroost.com">Email Sales</a></div>
-          <div class="source">Cost note: public search result showed a 1-bedroom apartment around $246/night before date-specific taxes/fees. Verify November 20 availability directly.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://design-milk.com/images/2017/03/the-lokal-hotel-kitchen.jpg')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 2 · Boutique Apartment Hotel</div>
-          <h2>Lokal Hotel Old City</h2>
-          <p class="subtitle">Most on-brand aesthetic: intimate, locally designed, apartment-style suites with full kitchens and living rooms.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">6 suites total<small>1-2 bedroom flats; ideal partial buyout</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">From ~$246-$340/night<small>Public hotel-price snapshots vary by channel</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">High<small>Small property, high visual payoff</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> Home-like design, kitchens, and living rooms are ideal for Friendsgiving stations and cozy group time.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Pitch a suite feature, styled pajama-night content, or member perk code. A full/partial buyout could feel exclusive.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://staylokal.com/hotels/old-city-boutique-hotel/" target="_blank" rel="noopener">Open Property</a><a class="button secondary" href="tel:2677024345">Call (267) 702-4345</a></div>
-          <div class="source">Cost note: public results showed rates around $246-$289 base and $284-$340 with taxes/fees on sample dates.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://www.cvent.com/venues/_next/image?q=75&url=https%3A%2F%2Fimages.cvent.com%2Fcsn%2Fb0cef366-1223-4989-9adc-d1ce65b74ab6%2Fimages%2Ff74c30751fa34eff84191dd9789410fc_large%21_%21d38d22c1f1702ff0eff267c7ead48bdc.jpg&w=3840')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 3 · All-Suite Hotel</div>
-          <h2>The Windsor Suites</h2>
-          <p class="subtitle">Best balance of affordability, location, and practical full-kitchen suites in Center City.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">Up to 4/suite<small>Studio double/double and 1BR options sleep 4</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">From ~$177/night<small>Public Expedia snapshot; rates vary</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">Medium-High<small>Group-friendly, local contact available</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> Full kitchens, living areas, and larger suites give the group a reliable hotel setup with food-prep flexibility.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Ask for a discounted room block, waived amenities, or one comped suite in exchange for partner visibility.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://www.thewindsorsuites.com/" target="_blank" rel="noopener">Open Property</a><a class="button secondary" href="mailto:contactus@thewindsorsuites.com">Email Hotel</a></div>
-          <div class="source">Cost note: public Expedia result showed one-night stays from about $177 including taxes/fees on a sample October 2026 date.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://www.fairflight.de/images/hotels/philadelphia/element-by-westin/4f8b6177_1170x878_c.jpg')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 4 · Extended-Stay Hotel</div>
-          <h2>Element Philadelphia Downtown</h2>
-          <p class="subtitle">Most sponsor-friendly traditional hotel route, with kitchens, breakfast, meeting/event infrastructure, and room-block support.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">2-4 per room<small>Kitchen suites; 10+ rooms can qualify for group rate</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">~$260-$300/night<small>Public sample rates and event block references</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">High<small>Clear room-block pathway</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> Kitchens in rooms, downtown location, breakfast, and group booking process make logistics easier.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Pitch discounted group rate, comped gathering room, or brand partnership with a women’s professional club.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://www.marriott.com/en-us/hotels/phlel-element-philadelphia-downtown/rooms/" target="_blank" rel="noopener">Open Property</a><a class="button secondary" href="mailto:phlwhwelcomeofficemanagers@marriott.com">Email Contact</a></div>
-          <div class="source">Cost note: public results showed sample rates around $261-$301 and conference references around $269/night.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://www.hotelscombined.com/himg/23/fe/67/ice-550639-99663707-263957.jpg')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 5 · Practical Suite Hotel</div>
-          <h2>Home2 Suites Convention Center</h2>
-          <p class="subtitle">Budget-conscious, no-fuss suite hotel near Reading Terminal and the Convention Center.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">2-4 per suite<small>Studio/1BR layouts with sofa beds</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">~$150-$280/night<small>Public average/block-rate signals</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">Medium<small>Discount ask more likely than full comp</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> Kitchenettes, sofa beds, breakfast, and central location keep the event affordable and easy.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Ask for group rate, waived parking/fees, or a small member discount code.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://www.visitphilly.com/places-to-stay/hotels/home2-suites-by-hilton-philadelphia-convention-center/" target="_blank" rel="noopener">Open Property</a></div>
-          <div class="source">Cost note: public travel results showed January average around $148/night and conference listing around $279/night; date-specific quote needed.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://thephiladelphiacitizen.org/wp-content/uploads/2021/11/Guild-House-Hotel-Philadelphia-7-1024x683.jpg')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 6 · Boutique Hotel</div>
-          <h2>Guild House Hotel</h2>
-          <p class="subtitle">Most aligned with women’s community storytelling: a historic boutique hotel honoring Philadelphia women and designed for intimate group outings.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">12 rooms/suites<small>Alice suite is 2BR/2BA; small gatherings under 15</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">From ~$298/night<small>Public Expedia snapshot for lowest room</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">Very High<small>Mission alignment is excellent</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> The Alice suite has a large living room and kitchenette, plus the hotel’s identity is rooted in women’s history.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Lead with mission alignment: women’s club x women-centered historic hotel. Ask for suite discount, lounge access, or house-booking quote.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://guildhousehotel.com/rooms-suites/" target="_blank" rel="noopener">Open Property</a><a class="button secondary" href="mailto:info@guildhousehotel.com">Email Hotel</a></div>
-          <div class="source">Cost note: public Expedia result showed one-night stays from about $298 including taxes/fees on a sample October 2026 date.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/5d841de0902a3643d4173c78/1572220068674-EVAS7LPFHUMHJFPK9WCM/IMG_8862_NEW_v2.jpg')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 7 · Invisible-Service Apartments</div>
-          <h2>Kestrel Hotel</h2>
-          <p class="subtitle">Local, family-run apartment-style stays in Center City and Fishtown with stocked kitchens and private apartment layouts.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">2-4 per unit<small>Studios, 1BR suites, and lofts</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">From ~$138/night<small>Public Google Hotels snapshot for 5-night sample</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">Medium-High<small>Local operator, direct contact</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> Stocked kitchens, private apartments, and multiple local units could make a small overnight event feel homey.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Pitch a local women’s club partnership, discounted multi-unit stay, and social content highlighting a Philly family-run hotel.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://www.kestrel-philly.com/about" target="_blank" rel="noopener">Open Property</a><a class="button secondary" href="mailto:info@kestrel-philly.com">Email Kestrel</a></div>
-          <div class="source">Cost note: public Google Hotels result showed around $138/night on a late-November 2026 multi-night sample; verify exact one-night event quote.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://images.prismic.io/philadelphia-rushstreetgaming/aAvGT_IqRLdaBoT6_RiversuitesHotelPhiladelphia1.jpg?auto=format%2Ccompress')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 8 · Fishtown Apartment Hotel</div>
-          <h2>Riversuites at The Battery</h2>
-          <p class="subtitle">Newer waterfront apartment-hotel option with one-, two-, and three-bedroom suites, kitchenettes, sleeper sofas, and free parking.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">2-6 per suite<small>1BR, 2BR, 3BR layouts available</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">~$194-$259/night<small>Public Google/official snapshots</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">Medium<small>Good discount/loyalty angle</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> Apartment-style suites, parking, and Fishtown location are useful for local members driving in.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Ask for Rush Rewards-linked discounted stay, parking perk, or one upgraded suite for the host team.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://www.riverscasino.com/philadelphia/riversuiteshotel" target="_blank" rel="noopener">Open Property</a><a class="button secondary" href="tel:8774773715">Call (877) 477-3715</a></div>
-          <div class="source">Cost note: public Google results showed roughly $194-$259/night on sample dates; Expedia showed starts around $213 with taxes/fees.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://media.vrbo.com/lodging/112000000/111370000/111365500/111365412/b722228d.jpg?impolicy=resizecrop&ra=fill&rh=900&rw=1200')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 9 · Whole-Home Rental</div>
-          <h2>South Philly 4BR Roof Deck</h2>
-          <p class="subtitle">Best local Airbnb/Vrbo-style slumber-party setup: full home, kitchen, dining/common area, outdoor space, and sleeps 10.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">Sleeps 10<small>4 bedrooms, 2+ bathrooms, roof deck</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">Quote required<small>Vrbo pricing changes by date, guests, taxes, fees</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">Medium<small>Host discount more realistic than full comp</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> Full kitchen and whole-home privacy make this the easiest format for potluck, hot chocolate, and pajamas.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Ask host for a discounted stay in exchange for tagged content, professional photos, and future member referrals.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://www.vrbo.com/en-ca/cottage-rental/p2491678vb" target="_blank" rel="noopener">Open Property</a></div>
-          <div class="source">Cost note: listing exposes capacity and amenities publicly; exact November 20 price requires entering dates and guest count.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="hero">
-        <div class="photo" style="background-image:url('https://www.phluxurystays.com/uploads/uploads/files/69af0de0be797.jpeg')"></div>
-        <div class="panel">
-          <div class="property-kind">Option 10 · Whole-Home Rental</div>
-          <h2>Fishtown 4BR Retreat</h2>
-          <p class="subtitle">A more nightlife-adjacent local house option with kitchen, patio/balcony/roof deck, parking for one vehicle, and 3 full bathrooms.</p>
-          <div class="stats">
-            <div class="stat"><div class="label">Capacity</div><div class="value">Sleeps 10<small>4 bedrooms, 3 full bathrooms</small></div></div>
-            <div class="stat"><div class="label">Cost</div><div class="value">Quote required<small>Vrbo/Expedia dynamic pricing</small></div></div>
-            <div class="stat"><div class="label">Sponsor Fit</div><div class="value">Medium<small>Good host discount candidate</small></div></div>
-          </div>
-          <div class="why">
-            <div class="note"><strong>Why it works:</strong> Strong overnight capacity and multiple bathrooms help if the group is closer to 8-10 people.</div>
-            <div class="note"><strong>Sponsorship possibility:</strong> Ask for a creator/community discount. Important: roof-deck quiet rules after 9 PM make this better for a relaxed, indoor night.</div>
-          </div>
-          <div class="actions"><a class="button" href="https://www.vrbo.com/en-au/holiday-rental/p7223022" target="_blank" rel="noopener">Open Property</a></div>
-          <div class="source">Cost note: exact November 20 price requires entering dates and guest count; verify local-host and quiet-hour rules before booking.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <div class="full">
-        <div class="summary-card">
-          <div class="eyebrow">Recommended Outreach Order</div>
-          <h2>Start With the Best Story</h2>
-          <p class="subtitle">For sponsorship, prioritize properties where the brand story and guest experience make sense together. For pure affordability, keep the whole-home rentals as backups.</p>
-          <div class="ranking">
-            <div class="rank-card"><b>1. Guild House</b><span>Best mission alignment for a women’s social club.</span></div>
-            <div class="rank-card"><b>2. ROOST</b><span>Best overall kitchen + apartment-hotel logistics.</span></div>
-            <div class="rank-card"><b>3. Lokal</b><span>Best visual identity for styled slumber content.</span></div>
-            <div class="rank-card"><b>4. Windsor</b><span>Best affordable full-kitchen hotel option.</span></div>
-            <div class="rank-card"><b>5. Whole Home</b><span>Best true sleepover setup if sponsorship does not land.</span></div>
-          </div>
-          <div class="note" style="margin-top:22px;"><strong>Sponsor ask:</strong> “Green Girl Era is hosting an intimate Friendsgiving/slumber-party experience for Philadelphia professional women. We’re seeking a discounted or hosted overnight stay in exchange for partner recognition, tagged social content, email/newsletter visibility, and future member referrals.”</div>
-          <p class="fineprint">Pricing in this deck is based on public search snippets and sample-rate snapshots available October 6, 2026. Hotel and short-term rental rates change by date, occupancy, taxes, cleaning fees, and cancellation terms, so all prices should be rechecked before outreach or booking.</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">
-      <div>Green Girl Era · Friendsgiving Stay Search</div>
-      <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
-      <div id="counter">1 / 12</div>
-    </div>
-  </main>
-
-  <script>
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const counter = document.getElementById('counter');
-    const bar = document.getElementById('bar');
-    let current = 0;
-
-    function show(index) {
-      current = (index + slides.length) % slides.length;
-      slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
-      counter.textContent = `${current + 1} / ${slides.length}`;
-      bar.style.width = `${((current + 1) / slides.length) * 100}%`;
-      document.title = `${current + 1}/${slides.length} · Green Girl Era Stay Deck`;
-    }
-
-    document.getElementById('next').addEventListener('click', () => show(current + 1));
-    document.getElementById('prev').addEventListener('click', () => show(current - 1));
-
-    window.addEventListener('keydown', (event) => {
-      if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
-        event.preventDefault();
-        show(current + 1);
-      }
-      if (['ArrowLeft', 'PageUp'].includes(event.key)) {
-        event.preventDefault();
-        show(current - 1);
-      }
-      if (event.key === 'Home') show(0);
-      if (event.key === 'End') show(slides.length - 1);
-    });
-
-    show(0);
-  </script>
+<div class="brand"><img src="https://images.squarespace-cdn.com/content/v1/6a1c1ccc06a60a41ffef2eed/5f5a4676-3f45-4798-aab0-9cc10d57671e/Screenshot_2026-07-16_192943-removebg-preview.png?format=1500w" alt="Green Girl Era" referrerpolicy="no-referrer"></div>
+<main id="deck"></main>
+<div class="counter" id="counter"></div>
+<div class="controls"><button id="prev" aria-label="Previous slide">&lsaquo;</button><button id="next" aria-label="Next slide">&rsaquo;</button></div>
+<script>
+var CK="Checked on Expedia (USD, taxes and fees included, 4 guests) on Oct 6, 2026 for 1 night, Fri Nov 20 to Sat Nov 21.";
+var VK="Checked on Vrbo (10 guests) on Oct 6, 2026 for 1 night, Fri Nov 20 to Sat Nov 21.";
+var UNK="Not listed for 1 night, Nov 20 to 21. It may be sold out or only bookable direct. Call or email to confirm and ask about a hold. ";
+var P=[
+{type:"APARTMENT HOTEL",name:"ROOST East Market",lead:"Best overall hotel-apartment fit: polished, central, full kitchens, lounge-style amenities, and a sales team used to group arrangements.",
+ imgs:["https://www.thehotelguru.com/_images/78/bc/78bcf6bbfca0a02d8d6def938dc65261/s1654x900.jpg","https://myroost.com/hs-fs/hubfs/Roost%202023/East%20Market/Images/hw-image1-em.jpg","https://myroost.com/hs-fs/hubfs/Roost%202023/East%20Market/Images/hw-image2-em.jpg","https://myroost.com/hs-fs/hubfs/Roost%202023/East%20Market/Images/hw-image3-em.jpg"],
+ st:"avail",stl:"Available Nov 20 to 21",tag:"Live rate for Nov 20 to 21",big:"$851",unit:" per night",sub:"$983 total with taxes and fees. Expedia shows only 1 left at this price. Confirm the unit type with ROOST. Earlier snapshots started near $246 for a 1BR on other dates, so this Friday is much higher.",
+ chk:"<b>Availability:</b> bookable for the event night. "+CK,
+ cap:"2 to 4 per unit",capd:"Studios, 1BR, 2BR. Book multiple apartments for the group.",fit:"High",fitd:"Ask for a hosted suite plus partner content.",
+ why:"Full-size kitchens, cookware, residential layouts, and refined common amenities support the food-and-lounge format.",
+ sp:"Strong pitch for official overnight partner. ROOST offers a luxe apartment-hotel experience without losing the sleepover feel.",
+ links:[["Open property","https://www.myroost.com/luxury-hotel-east-market-philadelphia",1],["Email sales","mailto:reservations@myroost.com"]]},
+{type:"BOUTIQUE APARTMENT HOTEL",name:"Lokal Hotel Old City",lead:"Most on-brand aesthetic: intimate, locally designed, apartment-style suites with full kitchens and living rooms.",
+ imgs:["https://design-milk.com/images/2017/03/the-lokal-hotel-kitchen.jpg","https://staylokal.com/wp-content/uploads/2022/05/Lokal-Hotel-Philadelphia-OldCity-Ben-Bedroom-2-605x806.jpg.webp","https://staylokal.com/wp-content/uploads/2022/05/Lokal-Hotel-Philadelphia-OldCity-Tina-DiningRoom-1-605x806.jpg.webp","https://staylokal.com/wp-content/uploads/2019/12/weboptheidisbridge-10-768x512.jpg"],
+ st:"unk",stl:"Not showing online for Nov 20 to 21",tag:"Reference rate (other dates)",big:"From ~$246",unit:" per night",sub:"Public snapshots ran $246 to $340 with taxes and fees. This is not a Nov 20 quote.",
+ chk:"<b>Availability:</b> "+UNK+CK,
+ cap:"6 suites total",capd:"1 to 2 bedroom flats. Ideal for a partial buyout.",fit:"High",fitd:"Small property, high visual payoff.",
+ why:"Home-like design, kitchens, and living rooms are ideal for Friendsgiving stations and cozy group time.",
+ sp:"Pitch a suite feature, styled pajama-night content, or a member perk code. A full or partial buyout could feel exclusive.",
+ links:[["Open property","https://staylokal.com/hotels/old-city-boutique-hotel/",1],["Call (267) 702-4345","tel:2677024345"]]},
+{type:"ALL-SUITE HOTEL",name:"The Windsor Suites",lead:"Best balance of affordability, location, and practical full-kitchen suites in Center City.",
+ imgs:["https://assets.milestoneinternet.com/cdn-cgi/image/f=auto/pm-hotel-group-parent/the-windsor-suites/site-images/suites-and-apartment/overview/modern-and-stylish-room-at-the-windsor-suites-in-philadelphia-pennsylvania.jpg","https://assets.milestoneinternet.com/cdn-cgi/image/f=auto/pm-hotel-group-parent/the-windsor-suites/site-images/home/a-cozy-bedroom-at-the-windsor-suites-in-philadelphia-pennsylvania.jpg","https://assets.milestoneinternet.com/cdn-cgi/image/f=auto/pm-hotel-group-parent/the-windsor-suites/site-images/windsorsuitesphl-gbonghi-july2025-21.jpg","https://assets.milestoneinternet.com/cdn-cgi/image/f=auto/pm-hotel-group-parent/the-windsor-suites/site-images/king-one-bedroom-suite-1-sznkpv.jpg"],
+ st:"unk",stl:"Not showing online for Nov 20 to 21",tag:"Reference rate (other dates)",big:"From ~$177",unit:" per night",sub:"Public Expedia snapshot on a sample October date, taxes and fees included. This is not a Nov 20 quote.",
+ chk:"<b>Availability:</b> "+UNK+CK,
+ cap:"Up to 4 per suite",capd:"Studio double/double and 1BR options sleep 4.",fit:"Medium-High",fitd:"Group-friendly, local contact available.",
+ why:"Full kitchens, living areas, and larger suites give the group a reliable hotel setup with food-prep flexibility.",
+ sp:"Ask for a discounted room block, waived amenities, or one comped suite in exchange for partner visibility.",
+ links:[["Open property","https://www.thewindsorsuites.com/",1],["Email hotel","mailto:contactus@thewindsorsuites.com"]]},
+{type:"EXTENDED-STAY HOTEL",name:"Element Philadelphia Downtown",lead:"Most sponsor-friendly traditional hotel route, with kitchens, breakfast, meeting and event infrastructure, and room-block support.",
+ imgs:["https://www.fairflight.de/images/hotels/philadelphia/element-by-westin/4f8b6177_1170x878_c.jpg"],
+ st:"unk",stl:"Not showing online for Nov 20 to 21",tag:"Reference rate (other dates)",big:"~$260 to $300",unit:" per night",sub:"Public sample rates and event block references. This is not a Nov 20 quote.",
+ chk:"<b>Availability:</b> "+UNK+CK,
+ cap:"2 to 4 per room",capd:"Kitchen suites. 10+ rooms can qualify for a group rate.",fit:"High",fitd:"Clear room-block pathway.",
+ why:"Kitchens in rooms, a downtown location, breakfast, and a group booking process make logistics easier.",
+ sp:"Pitch a discounted group rate, a comped gathering room, or a brand partnership with a women&rsquo;s professional club.",
+ links:[["Open property","https://www.marriott.com/en-us/hotels/phlel-element-philadelphia-downtown/rooms/",1],["Email contact","mailto:phlwhwelcomeofficemanagers@marriott.com"]]},
+{type:"PRACTICAL SUITE HOTEL",name:"Home2 Suites Convention Center",lead:"Budget-conscious, no-fuss suite hotel near Reading Terminal and the Convention Center.",
+ imgs:["https://www.hotelscombined.com/himg/23/fe/67/ice-550639-99663707-263957.jpg","https://www.visitphilly.com/wp-content/uploads/2018/02/Home2_Exterior.jpg"],
+ st:"unk",stl:"Not showing online for Nov 20 to 21",tag:"Reference rate (other dates)",big:"~$150 to $280",unit:" per night",sub:"Public average and block-rate signals. This is not a Nov 20 quote.",
+ chk:"<b>Availability:</b> "+UNK+CK,
+ cap:"2 to 4 per suite",capd:"Studio and 1BR layouts with sofa beds.",fit:"Medium",fitd:"A discount ask is more likely than a full comp.",
+ why:"Kitchenettes, sofa beds, breakfast, and a central location keep the event affordable and easy.",
+ sp:"Ask for a group rate, waived parking or fees, or a small member discount code.",
+ links:[["Open property","https://www.visitphilly.com/places-to-stay/hotels/home2-suites-by-hilton-philadelphia-convention-center/",1]]},
+{type:"BOUTIQUE HOTEL",name:"Guild House Hotel",lead:"Most aligned with women&rsquo;s community storytelling: a historic boutique hotel honoring Philadelphia women and designed for intimate group outings.",
+ imgs:["https://thephiladelphiacitizen.org/wp-content/uploads/2021/11/Guild-House-Hotel-Philadelphia-7-1024x683.jpg","https://guildhousehotel.com/wp-content/uploads/2020/09/GUILD-HOUSE_ROOM-01_656-FINAL.jpg","https://guildhousehotel.com/wp-content/uploads/2020/09/GUILD-HOUSE_ROOM02_707FINAL.jpg","https://guildhousehotel.com/wp-content/uploads/2020/09/GUILD-HOUSE_ROOM03_635FINAL.jpg"],
+ st:"unk",stl:"Not showing online for Nov 20 to 21",tag:"Reference rate (other dates)",big:"From ~$298",unit:" per night",sub:"Public Expedia snapshot for the lowest room on a sample October date, taxes and fees included. This is not a Nov 20 quote.",
+ chk:"<b>Availability:</b> "+UNK+CK,
+ cap:"12 rooms and suites",capd:"The Alice suite is 2BR/2BA. Small gatherings under 15.",fit:"Very High",fitd:"Mission alignment is excellent.",
+ why:"The Alice suite has a large living room and kitchenette, and the hotel&rsquo;s identity is rooted in women&rsquo;s history.",
+ sp:"Lead with mission alignment: a women&rsquo;s club with a women-centered historic hotel. Ask for a suite discount, lounge access, or a house-booking quote.",
+ links:[["Open property","https://www.guildhousehotel.com/rooms-suites/",1],["Email hotel","mailto:info@guildhousehotel.com"]]},
+{type:"LOCAL APARTMENT STAYS",name:"Kestrel Hotel",lead:"Local, family-run apartment-style stays in Center City and Fishtown with stocked kitchens and private apartment layouts.",
+ imgs:["https://images.squarespace-cdn.com/content/v1/5d841de0902a3643d4173c78/1572220068674-EVAS7LPFHUMHJFPK9WCM/IMG_8862_NEW_v2.jpg","https://static1.squarespace.com/static/5d841de0902a3643d4173c78/t/64a7511b976c536856b79075/1688686876477/centercity_splash.jpg","https://static1.squarespace.com/static/5d841de0902a3643d4173c78/t/64a762803bf14d1758868d99/1688691328826/fishtown_splash_3.jpg","https://images.squarespace-cdn.com/content/v1/5d841de0902a3643d4173c78/8888fcc9-125e-452a-a5c0-9bc75a050bfa/kestrel_roll_v2.jpg"],
+ st:"unk",stl:"Not showing online for Nov 20 to 21",tag:"Reference rate (other dates)",big:"From ~$138",unit:" per night",sub:"Google Hotels snapshot for a late-November multi-night sample. This is not a Nov 20 quote.",
+ chk:"<b>Availability:</b> "+UNK+CK,
+ cap:"2 to 4 per unit",capd:"Studios, 1BR suites, and lofts.",fit:"Medium-High",fitd:"Local operator, direct contact.",
+ why:"Stocked kitchens and private apartments could make a small overnight event feel homey.",
+ sp:"Pitch a local women&rsquo;s club partnership, a discounted multi-unit stay, and social content highlighting a Philly family-run hotel.",
+ links:[["Open property","https://www.kestrel-philly.com/about",1],["Email Kestrel","mailto:info@kestrel-philly.com"]]},
+{type:"FISHTOWN APARTMENT HOTEL",name:"Riversuites at The Battery",lead:"Newer waterfront apartment-hotel option with one, two, and three-bedroom suites, kitchenettes, sleeper sofas, and free parking.",
+ imgs:["https://images.prismic.io/philadelphia-rushstreetgaming/aAvGT_IqRLdaBoT6_RiversuitesHotelPhiladelphia1.jpg?auto=format%2Ccompress"],
+ st:"unk",stl:"Not showing online for Nov 20 to 21",tag:"Reference rate (other dates)",big:"~$194 to $259",unit:" per night",sub:"Public Google and official snapshots on sample dates. This is not a Nov 20 quote.",
+ chk:"<b>Availability:</b> "+UNK+CK,
+ cap:"2 to 6 per suite",capd:"1BR, 2BR, and 3BR layouts.",fit:"Medium",fitd:"Good discount and loyalty angle.",
+ why:"Apartment-style suites, parking, and a Fishtown location are useful for local members driving in.",
+ sp:"Ask for a Rush Rewards-linked discounted stay, a parking perk, or one upgraded suite for the host team.",
+ links:[["Open property","https://www.riverscasino.com/philadelphia/riversuiteshotel",1],["Call (877) 477-3715","tel:8774773715"]]},
+{type:"WHOLE-HOME RENTAL",name:"South Philly 4BR Roof Deck",lead:"Local Airbnb/Vrbo-style slumber-party setup: full home, kitchen, dining and common area, outdoor space, and sleeps 10.",
+ imgs:["https://media.vrbo.com/lodging/72000000/71640000/71633200/71633178/41e09911.jpg","https://media.vrbo.com/lodging/72000000/71640000/71633200/71633178/2090d600.jpg","https://media.vrbo.com/lodging/72000000/71640000/71633200/71633178/ecc49acf.jpg","https://media.vrbo.com/lodging/72000000/71640000/71633200/71633178/a86c99ec.jpg"],
+ st:"no",stl:"Not available Nov 20 to 21",tag:"Price",big:"No quote",unit:"",sub:"Vrbo shows no availability for the event night, so there is no Nov 20 price to show.",
+ chk:"<b>Availability:</b> Vrbo says the property is not available for these dates. "+VK,
+ cap:"Sleeps 10",capd:"4 bedrooms, 2+ bathrooms, roof deck.",fit:"Medium",fitd:"A host discount is more realistic than a full comp.",
+ why:"Full kitchen and whole-home privacy make this the easiest format for potluck, hot chocolate, and pajamas.",
+ sp:"Not a backup for Nov 20. Keep it in mind if the date ever moves.",
+ links:[["Open property","https://www.vrbo.com/en-ca/cottage-rental/p2491678vb?chkin=2026-11-20&chkout=2026-11-21&adults=10",1]]},
+{type:"WHOLE-HOME RENTAL",name:"Fishtown 4BR Retreat",lead:"A more nightlife-adjacent local house with kitchen, patio and roof deck, parking for one vehicle, and 3 full bathrooms.",
+ imgs:["https://media.vrbo.com/lodging/30000000/29490000/29484100/29484095/25012cac.jpg","https://media.vrbo.com/lodging/30000000/29490000/29484100/29484095/21185c22.jpg","https://media.vrbo.com/lodging/30000000/29490000/29484100/29484095/4fa9f17c.jpg"],
+ st:"no",stl:"Not available Nov 20 to 21",tag:"Price",big:"No quote",unit:"",sub:"Vrbo shows no availability for the event night, so there is no Nov 20 price to show.",
+ chk:"<b>Availability:</b> Vrbo says the property is not available for these dates. "+VK,
+ cap:"Sleeps 10",capd:"4 bedrooms, 3 full bathrooms.",fit:"Medium",fitd:"Good host discount candidate.",
+ why:"Strong overnight capacity and multiple bathrooms help if the group is closer to 8 to 10 people.",
+ sp:"Not a backup for Nov 20. Roof-deck quiet rules after 9 PM also make it better for a relaxed indoor night.",
+ links:[["Open property","https://www.vrbo.com/en-au/holiday-rental/p7223022?chkin=2026-11-20&chkout=2026-11-21&adults=10",1]]}
+];
+var SL={avail:"Available",unk:"Confirm directly",no:"Unavailable"};
+function bgDiv(u,dark){return '<div class="bg" style="background-image:url('+u+')"></div><div class="veil"></div>'}
+function imgs(a){var c=a.length==1?"one":a.length==2?"two":"";var s='<div class="gal '+c+'">';for(var i=0;i<a.length;i++){s+='<img src="'+a[i]+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=&quot;none&quot;">'}return s+'</div>'}
+function propSlide(p,i){
+ var l="";for(var k=0;k<p.links.length;k++){l+='<a class="btn'+(p.links[k][2]?' primary':'')+'" href="'+p.links[k][0+1]+'" target="_blank" rel="noopener">'+p.links[k][0]+'</a>'}
+ return '<section class="slide">'+bgDiv(p.imgs[0])+'<article class="card"><div class="head"><div><div class="eyebrow">Option '+(i+1)+' &middot; '+p.type+'</div><h2>'+p.name+'</h2></div><span class="badge s-'+p.st+'">'+p.stl+'</span></div><p class="lead">'+p.lead+'</p><div class="grid"><div><div class="pricebox"><div class="tag">'+p.tag+'</div><div class="big">'+p.big+'<small>'+p.unit+'</small></div><div class="sub">'+p.sub+'</div></div><div class="checkbox">'+p.chk+'</div><div class="stats"><div class="stat"><div class="l">Capacity</div><div class="v">'+p.cap+'</div><div class="d">'+p.capd+'</div></div><div class="stat"><div class="l">Sponsor fit</div><div class="v">'+p.fit+'</div><div class="d">'+p.fitd+'</div></div></div></div><div>'+imgs(p.imgs)+'<div class="links">'+l+'</div></div></div><div class="cols"><div><b>Why it works:</b> '+p.why+'</div><div><b>Sponsorship angle:</b> '+p.sp+'</div></div></article></section>'}
+function cover(){return '<section class="slide dark">'+bgDiv(P[1].imgs[0])+'<article class="card"><div class="eyebrow">Green Girl Era &middot; Philadelphia</div><h1>Friendsgiving Stay Deck</h1><p class="lead">10 stay options for an intimate Friday, November 20 slumber-party style gathering with kitchen access, common areas, overnight capacity, and sponsorship potential. Each option shows photos, price, and availability for the event night.</p><div class="stats3"><div class="stat"><div class="l">Event</div><div class="v">Girls&rsquo; night in</div><div class="d">Friendsgiving, pajamas, hot chocolate, mimosas</div></div><div class="stat"><div class="l">Stay needed</div><div class="v">1 night</div><div class="d">Check in Fri Nov 20, check out Sat Nov 21</div></div><div class="stat"><div class="l">Priority</div><div class="v">Affordable</div><div class="d">Discount, hosted stay, or partner rate</div></div></div><p class="note">Use the arrow keys or the buttons to move through the slides.</p></article></section>'}
+function eventSlide(){return '<section class="slide">'+bgDiv(P[5].imgs[0])+'<article class="card"><div class="eyebrow">Event date</div><h2>Friday, November 20, 2026</h2><p class="lead">Confirmed in the meeting for the girls&rsquo; night in and slumber party with a Friendsgiving celebration. We need one night of accommodation: check in November 20, check out November 21.</p><div class="timeline"><div class="node hl"><div class="d">Fri &middot; Nov 20</div><div class="t">Event night</div><p>Check in. Slumber party and Friendsgiving celebration.</p></div><div class="node"><div class="d">Sat &middot; Nov 21</div><div class="t">Check out</div><p>One-night stay ends.</p></div><div class="node"><div class="d">Thu &middot; Nov 26</div><div class="t">Thanksgiving</div><p>The event lands one week before the holiday, which is why this date was chosen.</p></div></div><p class="note">All availability and prices in this deck were checked for the night of Nov 20 to 21, 2026.</p></article></section>'}
+function compare(){var r="";for(var i=0;i<P.length;i++){var p=P[i];r+='<tr><td class="n">'+(i+1)+'</td><td><b>'+p.name+'</b></td><td><span class="chip s-'+p.st+'">'+SL[p.st]+'</span></td><td>'+(p.st=="avail"?'<b>'+p.big+'</b> per night':p.big+(p.st=="no"?'':' <span style="color:#66726a">(ref.)</span>'))+'</td><td>'+p.cap+'</td><td>'+p.fit+'</td></tr>'}
+ return '<section class="slide">'+bgDiv(P[0].imgs[1])+'<article class="card"><div class="eyebrow">Side by side</div><h2>Availability and Price Snapshot</h2><table><thead><tr><th></th><th>Property</th><th>Nov 20 to 21</th><th>Price</th><th>Sleeps</th><th>Sponsor fit</th></tr></thead><tbody>'+r+'</tbody></table><p class="note">Price is a live Expedia rate only where the status is Available. Rows marked (ref.) show an earlier public snapshot on other dates, not a Nov 20 quote. Confirm directly before relying on any of them.</p></article></section>'}
+function recommended(){return '<section class="slide">'+bgDiv(P[2].imgs[2])+'<article class="card"><div class="eyebrow">Recommended outreach order</div><h2>Start With the Best Story</h2><p class="lead">For sponsorship, prioritize properties where the brand story and guest experience make sense together. ROOST is the only property showing live availability, so contact it first and use calls to confirm the rest.</p><div class="order"><div><b>1. ROOST</b>Only live availability for Nov 20 to 21, at $851 per night. Ask about a hosted suite or partner rate.</div><div><b>2. Guild House</b>Best mission alignment for a women&rsquo;s social club. Call to ask about a hold.</div><div><b>3. Lokal</b>Best visual identity for styled slumber content. Ask about a partial buyout.</div><div><b>4. Windsor Suites</b>Best affordable full-kitchen hotel option if a suite is open.</div><div><b>5. Kestrel</b>Local operator with direct contact and the lowest reference rate.</div></div><div class="ask"><b>Sponsor ask:</b> &ldquo;Green Girl Era is hosting an intimate Friendsgiving/slumber-party experience for Philadelphia professional women. We&rsquo;re seeking a discounted or hosted overnight stay in exchange for partner recognition, tagged social content, email/newsletter visibility, and future member referrals.&rdquo;</div><p class="note">Both whole-home rentals show as unavailable on Vrbo for Nov 20 to 21, so they are not backups for this date. Availability and prices were checked on Oct 6, 2026 and change quickly, so confirm directly before booking.</p></article></section>'}
+var S=[cover(),eventSlide(),compare()];for(var i=0;i<P.length;i++){S.push(propSlide(P[i],i))}S.push(recommended());
+document.getElementById("deck").innerHTML=S.join("");
+var el=document.querySelectorAll(".slide"),cur=0;
+function show(n){cur=Math.max(0,Math.min(el.length-1,n));for(var i=0;i<el.length;i++){el[i].classList.toggle("active",i==cur)}document.getElementById("counter").textContent=(cur+1)+" / "+el.length;document.title=(cur+1)+"/"+el.length+" \u00b7 Green Girl Era Stay Deck";try{history.replaceState(null,"","#"+(cur+1))}catch(e){}}
+document.getElementById("prev").onclick=function(){show(cur-1)};document.getElementById("next").onclick=function(){show(cur+1)};
+document.addEventListener("keydown",function(e){if(e.key=="ArrowRight"||e.key==" "||e.key=="PageDown"){show(cur+1)}else if(e.key=="ArrowLeft"||e.key=="PageUp"){show(cur-1)}});
+var tx=null;document.addEventListener("touchstart",function(e){tx=e.touches[0].clientX});document.addEventListener("touchend",function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60){show(cur+(d<0?1:-1))}tx=null});
+show((parseInt(location.hash.slice(1))||1)-1);
+</script>
 </body>
 </html>
